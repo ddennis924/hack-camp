@@ -3,7 +3,6 @@ package study_tinder;
 
 import java.util.List;
 import java.util.ArrayList;
-import java.util.List;
 
 public class User {
     private final String name;
