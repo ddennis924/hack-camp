@@ -23,8 +23,7 @@ public class UserPrompt extends JFrame implements ActionListener {
         setLayout(new BorderLayout());
         JPanel main = new JPanel(new BorderLayout());
         add(main, BorderLayout.CENTER);
-        setSize(new Dimension(400, 85));
-        setResizable(false);
+        setSize(new Dimension(400, 400));
         setVisible(true);
         setDefaultCloseOperation(UserPrompt.DISPOSE_ON_CLOSE);
         setAlwaysOnTop(true);
