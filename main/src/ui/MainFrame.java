@@ -1,12 +1,10 @@
 package ui;
 
-import study_tinder.Category;
 import study_tinder.Question;
 import study_tinder.User;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.util.List;
 
 public class MainFrame extends JFrame {
