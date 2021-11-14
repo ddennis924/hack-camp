@@ -8,6 +8,8 @@ import java.awt.*;
 import java.util.List;
 
 public class MainFrame extends JFrame {
+    public static final int WIDTH = 200;
+    public static final int HEIGHT = 400;
     private User user;
     private List<Question> questionsAsked;
     private int sequence;
@@ -56,7 +58,7 @@ public class MainFrame extends JFrame {
         setVisible(true);
         setLayout(new BorderLayout());
         setSize(new Dimension(WIDTH, HEIGHT));
-        setMinimumSize(new Dimension(400, 450));
+        setMinimumSize(new Dimension(WIDTH, HEIGHT));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         addMainPanel();
         name = new JTextArea();

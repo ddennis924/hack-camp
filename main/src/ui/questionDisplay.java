@@ -6,25 +6,26 @@ import java.awt.event.ActionEvent;
 
 public class questionDisplay {
     MainFrame editor;
-    Image image;
-    JLabel imageDisplay;
+    String content;
+    JTextArea imageDisplay;
 
     public questionDisplay(MainFrame e) {
         this.editor = e;
-        image = e.getQuestionsAsked().get(editor.getSequence()).getImage();
+        content = e.getQuestionsAsked().get(editor.getSequence()).getContent();
         initializeGraphics();
         initializeInputs();
     }
 
     private void initializeGraphics() {
-        imageDisplay = new JLabel(new ImageIcon(image));
+        imageDisplay = new JTextArea(content);
+        imageDisplay.setEditable(false);
         editor.add(imageDisplay,BorderLayout.CENTER);
+        imageDisplay.setPreferredSize(new Dimension(MainFrame.WIDTH, MainFrame.HEIGHT-20));
     }
 
     private void displayNewImage() {
         editor.setSequence(editor.getSequence() + 1);
-        image = editor.getQuestionsAsked().get(editor.getSequence()).getImage();
-        imageDisplay.setIcon( new ImageIcon(image));
+        content = editor.getQuestionsAsked().get(editor.getSequence()).getContent();
     }
 
     private void initializeInputs() {
