@@ -61,11 +61,20 @@ public class MainFrame extends JFrame {
         setMinimumSize(new Dimension(WIDTH, HEIGHT));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         addMainPanel();
+        addTools();
         name = new JTextArea();
-        add(name, BorderLayout.SOUTH);
     }
 
     private void addTools() {
+        JPanel toolArea = new JPanel();
+        toolArea.setVisible(true);
+        toolArea.setLayout(new GridLayout(2,1));
+        add(toolArea, BorderLayout.SOUTH);
+
+        JButton b1 = new JButton("filter categories");
+        toolArea.add(b1);
+        JButton b2 = new JButton("Super Solver");
+        toolArea.add(b2);
     }
 
     private void addMainPanel() {
