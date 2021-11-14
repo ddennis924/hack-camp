@@ -1,4 +1,4 @@
 package study_tinder;
 
-public class app {
+public class App {
 }

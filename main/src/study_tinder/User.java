@@ -1,6 +1,5 @@
 package study_tinder;
 
-
 import java.awt.*;
 import java.util.List;
 import java.util.ArrayList;
