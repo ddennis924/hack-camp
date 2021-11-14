@@ -1,5 +1,5 @@
 package study_tinder;
 
-public enum Categories {
+public enum Category {
     MATH, CPSC
 }

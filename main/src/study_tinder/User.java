@@ -1,5 +1,6 @@
 package study_tinder;
 
+
 import java.util.List;
 import java.util.ArrayList;
 
@@ -33,4 +34,5 @@ public class User {
     public String getName(){
         return this.name;
     }
+
 }
