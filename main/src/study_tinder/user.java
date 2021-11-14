@@ -1,7 +1,6 @@
 package study_tinder;
 
 
-import java.awt.*;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -24,12 +23,12 @@ public class User {
         this.questionList = seed;
     }
 
-    public void addQuestion(Image i, Category c){
-        new Question(this, i, c);
+    public void addQuestion(Question newQ){
+        questionList.add(newQ);
     }
 
     public List<Question> getQList(){
-        return this.questionList;
+        return new ArrayList<>(this.questionList);
     }
 
     public String getName(){
