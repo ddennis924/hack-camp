@@ -34,13 +34,17 @@ public class UserPrompt extends JFrame implements ActionListener {
         JTextArea questionDisplay = new JTextArea(question.getContent());
         add(questionDisplay, BorderLayout.NORTH);
         questionDisplay.setEditable(false);
+
         JPanel chat = new JPanel(new BorderLayout());
-        add(chat, BorderLayout.CENTER);
+        main.add(chat, BorderLayout.CENTER);
+
         JTextArea name = new JTextArea("Asked by: " + question.getUser().getName());
         name.setEditable(false);
         chat.add(name, BorderLayout.NORTH);
+
         chatBox = new JTextArea();
         chat.add(chatBox, BorderLayout.CENTER);
+
         textField = new JTextField();
         textField.addActionListener(this);
         chat.add(textField, BorderLayout.SOUTH);
