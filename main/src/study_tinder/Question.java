@@ -17,4 +17,24 @@ public class Question {
         this.user = user;
         this.user.getQList().add(this);
     }
+
+    public User getUser() {
+        return user;
+    }
+
+    public Image getImage() {
+        return image;
+    }
+
+    public void setImage(Image image) {
+        this.image = image;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
 }
