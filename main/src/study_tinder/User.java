@@ -1,10 +1,12 @@
 package study_tinder;
 
+
+import java.util.List;
 import java.util.ArrayList;
 
 public class User {
-    private String name;
-    private List<Question> questionList;
+    private final String name;
+    private final List<Question> questionList;
 
     public User(String name){
         this.name = name;
@@ -20,4 +22,17 @@ public class User {
         this.name = "guest";
         this.questionList = seed;
     }
+
+    public void addQuestion(Question newQ){
+        questionList.add(newQ);
+    }
+
+    public List<Question> getQList(){
+        return new ArrayList<>(this.questionList);
+    }
+
+    public String getName(){
+        return this.name;
+    }
+
 }
