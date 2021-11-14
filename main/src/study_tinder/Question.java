@@ -15,6 +15,6 @@ public class Question {
 
     private void addUser(User user) {
         this.user = user;
-        user.addQuestion(this);
+        this.user.getQList().add(this);
     }
 }
