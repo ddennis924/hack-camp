@@ -36,7 +36,8 @@ public class UserPrompt extends JFrame implements ActionListener {
         questionDisplay.setEditable(false);
         JPanel chat = new JPanel(new BorderLayout());
         add(chat, BorderLayout.CENTER);
-        JTextArea name = new JTextArea(question.getUser().getName());
+        JTextArea name = new JTextArea("Asked by: " + question.getUser().getName());
+        name.setEditable(false);
         chat.add(name, BorderLayout.NORTH);
         chatBox = new JTextArea();
         chat.add(chatBox, BorderLayout.CENTER);
