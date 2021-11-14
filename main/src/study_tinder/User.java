@@ -4,9 +4,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import persistence.Writable;
 
-import java.awt.*;
 import java.util.*;
-import java.util.List;
 
 public class User implements Writable {
     private final String name;
@@ -94,7 +92,7 @@ public class User implements Writable {
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
         json.put("user", name);
-        json.put("restaurants", questionsToJson());
+        json.put("questions", questionsToJson());
         return json;
     }
 }
