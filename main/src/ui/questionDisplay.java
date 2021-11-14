@@ -1,13 +1,17 @@
 package ui;
 
 import javax.swing.*;
+import javax.swing.text.DefaultStyledDocument;
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyledDocument;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
 public class questionDisplay {
     MainFrame editor;
     String content;
-    JTextArea imageDisplay;
+    JTextPane imageDisplay;
 
     public questionDisplay(MainFrame e) {
         this.editor = e;
@@ -17,9 +21,16 @@ public class questionDisplay {
     }
 
     private void initializeGraphics() {
-        imageDisplay = new JTextArea(content);
+        imageDisplay = new JTextPane();
+        StyledDocument doc = imageDisplay.getStyledDocument();
+        SimpleAttributeSet centre = new SimpleAttributeSet();
+
+        StyleConstants.setAlignment(centre, StyleConstants.ALIGN_CENTER);
+        imageDisplay.setText(content);
+        doc.setParagraphAttributes(0,doc.getLength(),centre,false);
+
         imageDisplay.setEditable(false);
-        editor.add(imageDisplay,BorderLayout.CENTER);
+        editor.add(imageDisplay, BorderLayout.CENTER);
         imageDisplay.setPreferredSize(new Dimension(MainFrame.WIDTH, MainFrame.HEIGHT-20));
     }
 
