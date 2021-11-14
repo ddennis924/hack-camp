@@ -1,14 +1,12 @@
 package study_tinder;
 
-import java.awt.*;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.Set;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
 
-public class User {
+import java.util.*;
+
+public class User implements Writable {
     private final String name;
     private final List<Question> questionList;
 
@@ -27,7 +25,7 @@ public class User {
         this.questionList = seed;
     }
 
-    public void addQuestion(Image i, Category c){
+    public void addQuestion(String i, String c){
         new Question(this, i, c);
     }
 
@@ -39,25 +37,25 @@ public class User {
         return this.name;
     }
 
-    public Set<Category> commonCategories(User other){
-        Set<Category> out = new HashSet<>();
+    public Set<String> commonCategories(User other){
+        Set<String> out = new HashSet<>();
 
-        Map<Category, Integer> thisOccurrence = getOccurrenceMap(this.questionList);
-        Map<Category, Integer> otherOccurrence = getOccurrenceMap(other.questionList);
+        Map<String, Integer> thisOccurrence = getOccurrenceMap(this.questionList);
+        Map<String, Integer> otherOccurrence = getOccurrenceMap(other.questionList);
 
-        for(Category c : thisOccurrence.keySet()){
-            if(otherOccurrence.containsKey(c)){
-                out.add(c);
+        for(String str : thisOccurrence.keySet()){
+            if(otherOccurrence.containsKey(str)){
+                out.add(str);
             }
         }
 
         return out;
     }
 
-    private static Map<Category, Integer> getOccurrenceMap(List<Question> qList){
-        Map<Category, Integer> output = new HashMap<>();
+    private static Map<String, Integer> getOccurrenceMap(List<Question> qList){
+        Map<String, Integer> output = new HashMap<>();
         qList.forEach(question -> {
-            Category thisCat = question.getCategory();
+            String thisCat = question.getCategory();
             if(output.containsKey(thisCat)){
                 output.replace(thisCat, output.get(thisCat)+1);
             }
@@ -66,5 +64,35 @@ public class User {
             }
         });
         return output;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(name, user.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name);
+    }
+
+    // EFFECTS: returns restaurants in RestaurantList as JSONArray of restaurants
+    private JSONArray questionsToJson() {
+        JSONArray jsonArray = new JSONArray();
+        for (Question q : questionList) {
+            jsonArray.put(q.toJson());
+        }
+        return jsonArray;
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("user", name);
+        json.put("questions", questionsToJson());
+        return json;
     }
 }
