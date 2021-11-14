@@ -1,14 +1,14 @@
 package study_tinder;
 
-import java.awt.*;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.Set;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
 
-public class User {
+import java.awt.*;
+import java.util.*;
+import java.util.List;
+
+public class User implements Writable {
     private final String name;
     private final List<Question> questionList;
 
@@ -66,5 +66,35 @@ public class User {
             }
         });
         return output;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(name, user.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name);
+    }
+
+    // EFFECTS: returns restaurants in RestaurantList as JSONArray of restaurants
+    private JSONArray questionsToJson() {
+        JSONArray jsonArray = new JSONArray();
+        for (Question q : questionList) {
+            jsonArray.put(q.toJson());
+        }
+        return jsonArray;
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("user", name);
+        json.put("restaurants", questionsToJson());
+        return json;
     }
 }

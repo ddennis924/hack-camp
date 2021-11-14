@@ -1,16 +1,19 @@
 package study_tinder;
 
+import org.json.JSONObject;
+import persistence.Writable;
+
 import java.awt.*;
 
-public class Question {
+public class Question implements Writable {
     User user;
-    Image image;
-    Category category;
+    String question;
+    String category;
 
-    public Question(User user, Image i, Category c) {
+    public Question(User user, String question, String cat){
         addUser(user);
-        this.image = i;
-        this.category = c;
+        this.question = question;
+        this.category = cat;
     }
 
     private void addUser(User user) {
@@ -40,5 +43,15 @@ public class Question {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("user", user);
+        json.put("question", question);
+        json.put("category", category);
+        return json;
     }
 }

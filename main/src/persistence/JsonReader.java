@@ -1,15 +1,16 @@
 package persistence;
 
-import model.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import study_tinder.Question;
+import study_tinder.User;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Stream;
 
 // Represents a reader that reads workroom from JSON data stored in file
@@ -27,7 +28,7 @@ public class JsonReader {
     public List<Question> read() throws IOException {
         String jsonData = readFile(source);
         JSONObject jsonObject = new JSONObject(jsonData);
-        return parseRestaurantList(jsonObject);
+        return parseQuestionList(jsonObject);
     }
 
     // EFFECTS: reads source file as string and returns it
@@ -41,78 +42,34 @@ public class JsonReader {
     }
 
     // EFFECTS: parses RestaurantList from JSON object and returns it
-    private RestaurantList parseRestaurantList(JSONObject jsonObject) {
-        String name = jsonObject.getString("name");
-        RestaurantList rl = new RestaurantList(name);
-        addRestaurants(rl, jsonObject);
-        return rl;
-    }
-
-    // MODIFIES: rl
-    // EFFECTS: parses Restaurants from JSONobject and adds them to rl
-    private void addRestaurants(RestaurantList rl, JSONObject jsonObject) {
-        JSONArray jsonArray = jsonObject.getJSONArray("restaurants");
+    private List<Question> parseQuestionList(JSONObject jsonObject) {
+        List<Question> ql = new ArrayList<>();
+        JSONArray jsonArray = jsonObject.getJSONArray("questions");
         for (Object json : jsonArray) {
-            JSONObject nextRestaurant = (JSONObject) json;
-            addRestaurant(rl, nextRestaurant);
+            JSONObject nextQuestion = (JSONObject) json;
+            addQuestion(ql, nextQuestion);
         }
+        return ql;
     }
 
     // MODIFIES: rl
     // EFFECTS: parses Restaurant from JSON object and adds it to rl
-    private void addRestaurant(RestaurantList rl, JSONObject jsonObject) {
-        String name = jsonObject.getString("name");
+    private void addQuestion(List<Question> ql, JSONObject jsonObject) {
+        JSONObject userO = jsonObject.getJSONObject("user");
+        User user = addUser(userO);
 
-        JSONArray locationsArray = jsonObject.getJSONArray("locations");
-        ArrayList<Location> locations = new ArrayList<>();
-        addLocations(locationsArray, locations);
+        String question = jsonObject.getString("question");
 
-        JSONArray dishesArray = jsonObject.getJSONArray("dishes");
-        ArrayList<String> dishes = new ArrayList<>();
+        String category = jsonObject.getString("category");
 
-        addDishes(dishesArray, dishes);
-        String ethnicity = jsonObject.getString("ethnicity");
-        Cuisine cuisine = new Cuisine(ethnicity,dishes);
+        Question newQuestion = new Question(user, question, category);
 
-        int visits = jsonObject.getInt("visits");
-        Restaurant restaurant = new Restaurant(name, locations,cuisine,visits);
-        if (visits > 0) {
-            double price = jsonObject.getDouble("price");
-            double rating = jsonObject.getDouble("rating");
-            String review = jsonObject.getString("review");
-
-            restaurant.setPrice(price);
-            restaurant.setRating(rating);
-            restaurant.setReview(review);
-        }
-        rl.addRestaurant(restaurant);
+        ql.add(newQuestion);
     }
 
-    // MODIFIES: dishes
-    // EFFECTS: parses dishes from dishesArray and adds it to dishes
-    private void addDishes(JSONArray dishesArray, ArrayList<String> dishes) {
-        for (Object json : dishesArray) {
-            JSONObject dishObject = (JSONObject) json;
-            String dish = ((JSONObject) json).getString("dish");
-            dishes.add(dish);
-        }
-    }
-
-    // MODIFIES: locations
-    // EFFECTS: parses locations from JSONArray and adds it to locations
-    private void addLocations(JSONArray locationsArray, ArrayList<Location> locations) {
-        for (Object json : locationsArray) {
-            JSONObject location = (JSONObject) json;
-            addLocation(location, locations);
-        }
-    }
-
-    // MODIFIES: rl
-    // EFFECTS: parses location from JSONObject and adds it to locations
-    private void addLocation(JSONObject location, ArrayList<Location> locations) {
-        String address = location.getString("address");
-        String area = location.getString("area");
-        Location l = new Location(address,area);
-        locations.add(l);
+    private User addUser(JSONObject userO) {
+        String name = userO.getString("name");
+        User user = new User(name);
+        return user;
     }
 }

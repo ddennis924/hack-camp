@@ -1,7 +1,7 @@
 package persistence;
 
-import model.RestaurantList;
 import org.json.JSONObject;
+import study_tinder.User;
 
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -27,8 +27,8 @@ public class JsonWriter {
 
     // MODIFIES: this
     // EFFECTS: writes JSON representation of RestaurantList to file
-    public void write(RestaurantList rl) {
-        JSONObject json = rl.toJson();
+    public void write(User u) {
+        JSONObject json = u.toJson();
         saveToFile(json.toString(TAB));
     }
 
