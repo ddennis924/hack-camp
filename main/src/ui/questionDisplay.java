@@ -26,6 +26,7 @@ public class questionDisplay {
     private void displayNewImage() {
         editor.setSequence(editor.getSequence() + 1);
         content = editor.getQuestionsAsked().get(editor.getSequence()).getContent();
+        imageDisplay.setText(content);
     }
 
     private void initializeInputs() {
