@@ -1,6 +1,7 @@
 package study_tinder;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class user {
     private String name;
