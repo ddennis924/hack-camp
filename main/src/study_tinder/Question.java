@@ -17,4 +17,8 @@ public class Question {
         this.user = user;
         this.user.getQList().add(this);
     }
+
+    public Category getCategory() {
+        return category;
+    }
 }
