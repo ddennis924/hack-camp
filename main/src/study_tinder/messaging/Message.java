@@ -1,4 +1,6 @@
-package study_tinder;
+package study_tinder.messaging;
+
+import study_tinder.User;
 
 public class Message {
     private User sender;
