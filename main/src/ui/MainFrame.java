@@ -71,7 +71,7 @@ public class MainFrame extends JFrame {
         toolArea.setLayout(new GridLayout(2,1));
         add(toolArea, BorderLayout.SOUTH);
 
-        JButton b1 = new JButton("filter categories");
+        JButton b1 = new JButton("Filter Categories");
         toolArea.add(b1);
         JButton b2 = new JButton("Super Solver");
         toolArea.add(b2);
@@ -82,7 +82,7 @@ public class MainFrame extends JFrame {
     }
 
     public void displayUserAsked() {
-        name.setText(getQuestion().getUser().getName());
+        new UserPrompt(this, questionsAsked.get(sequence));
     }
 
     private Question getQuestion() {
