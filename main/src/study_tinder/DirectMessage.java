@@ -14,6 +14,4 @@ public class DirectMessage {
     public String getMessage() {
         return message;
     }
-
-
 }
