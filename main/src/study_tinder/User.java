@@ -46,7 +46,7 @@ public class User {
         Map<String, Integer> otherOccurrence = getOccurrenceMap(other.questionList);
 
         for(String str : thisOccurrence.keySet()){
-            if(otherOccurrence.containsKey(c)){
+            if(otherOccurrence.containsKey(str)){
                 out.add(str);
             }
         }
