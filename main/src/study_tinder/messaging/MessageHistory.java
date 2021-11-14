@@ -1,7 +1,6 @@
 package study_tinder.messaging;
 
 import study_tinder.User;
-
 import java.util.ArrayList;
 import java.util.List;
 

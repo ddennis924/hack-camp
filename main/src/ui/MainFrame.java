@@ -25,8 +25,8 @@ public class MainFrame extends JFrame {
 
     private void test() {
         User user1 = new User("alan");
-        user1.addQuestion(new BufferedImage(20, 20, BufferedImage.TYPE_INT_RGB), Category.MATH);
-        user1.addQuestion(new BufferedImage(30, 40, BufferedImage.TYPE_INT_RGB), Category.CPSC);
+        user1.addQuestion("poonus", "MATH");
+        user1.addQuestion("poopcock", "CPSC");
         questionsAsked = user1.getQList();
     }
 
