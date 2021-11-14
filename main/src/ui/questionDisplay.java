@@ -1,12 +1,8 @@
 package ui;
 
-import com.sun.tools.javac.Main;
-import study_tinder.Question;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class questionDisplay {
     MainFrame editor;
@@ -34,7 +30,7 @@ public class questionDisplay {
     private void initializeInputs() {
         InputMap inputs = imageDisplay.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
         ActionMap actions = imageDisplay.getActionMap();
-        inputs.put(KeyStroke.getKeyStroke("A"), "swipeLeft");
+        inputs.put(KeyStroke.getKeyStroke("LEFT"), "swipeLeft");
 
         actions.put("swipeLeft", new AbstractAction() {
             @Override
@@ -43,7 +39,7 @@ public class questionDisplay {
             }
         });
 
-        inputs.put(KeyStroke.getKeyStroke("D"), "swipeRight");
+        inputs.put(KeyStroke.getKeyStroke("RIGHT"), "swipeRight");
         actions.put("swipeRight", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
