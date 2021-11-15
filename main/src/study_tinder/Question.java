@@ -48,7 +48,7 @@ public class Question implements Writable {
         JSONObject json = new JSONObject();
         json.put("question", content);
         json.put("category", category);
-        json.put("user", user);
+        json.put("user", user.getName());
         return json;
     }
 }
