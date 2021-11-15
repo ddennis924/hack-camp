@@ -41,7 +41,7 @@ public class User implements Writable {
     }
 
     public void addQuestion(String i, String c){
-        new Question(this, i, c);
+        questionList.add(new Question(this, i, c));
     }
 
     public List<Question> getQList(){

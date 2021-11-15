@@ -28,8 +28,8 @@ public class MainFrame extends JFrame {
 
     private void test() {
         User user1 = new User("alan");
-        user1.addQuestion("poonus", "MATH");
-        user1.addQuestion("poopcock", "CPSC");
+        user1.addQuestion("What is a for loop", "CPSC");
+        user1.addQuestion("((1+2)*0)/12985y1892519", "MATH");
         questionsAsked = user1.getQList();
     }
 
@@ -94,6 +94,7 @@ public class MainFrame extends JFrame {
                     main.setVisible(true);
                     add(main, BorderLayout.CENTER);
                     addMainOne();
+                    main.setFocusable(true);
                     revalidate();
                     repaint();
                 }
@@ -110,6 +111,7 @@ public class MainFrame extends JFrame {
                     main.setVisible(true);
                     add(main, BorderLayout.CENTER);
                     addMainTwo();
+                    main.setFocusable(true);
                     revalidate();
                     repaint();
                 }
