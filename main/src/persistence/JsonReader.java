@@ -42,7 +42,7 @@ public class JsonReader {
     }
 
     // EFFECTS: parses RestaurantList from JSON object and returns it
-    private List<Question> parseQuestionList(JSONObject jsonObject) {
+    public List<Question> parseQuestionList(JSONObject jsonObject) {
         List<Question> ql = new ArrayList<>();
         JSONArray jsonArray = jsonObject.getJSONArray("questions");
         for (Object json : jsonArray) {
@@ -55,8 +55,8 @@ public class JsonReader {
     // MODIFIES: rl
     // EFFECTS: parses Restaurant from JSON object and adds it to rl
     private void addQuestion(List<Question> ql, JSONObject jsonObject) {
-        JSONObject userO = jsonObject.getJSONObject("user");
-        User user = addUser(userO);
+        String name = jsonObject.getString("user");
+        User user = addUser(name);
 
         String question = jsonObject.getString("question");
 
@@ -67,8 +67,7 @@ public class JsonReader {
         ql.add(newQuestion);
     }
 
-    private User addUser(JSONObject userO) {
-        String name = userO.getString("name");
+    private User addUser(String name) {
         User user = new User(name);
         return user;
     }
