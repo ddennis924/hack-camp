@@ -1,3 +1,8 @@
+package server;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.JsonReader;
 import persistence.JsonWriter;
 import study_tinder.Question;
 
@@ -11,13 +16,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Server {
-    JsonWriter jsonWriter;
 
     public static void main(String[] args) {
         List<Question> questionList = new ArrayList<>();
+        JsonReader jsonReader = new JsonReader("");
 
         int portNum = 4441;
-        BufferedReader consoleReader = new BufferedReader(new InputStreamReader(System.in));
         boolean running = true;
 
         try {
@@ -28,19 +32,35 @@ public class Server {
 
             while (running) {
                 String clientText = input.readLine();
-
                 if (clientText != null) {
                     if (clientText.equals("quit")) {
                         running = false;
                     }
                     System.out.println("Received from client:" + clientText);
-                    output.println("received");
+                    JSONObject jsonObject = new JSONObject(clientText);
+                    questionList.addAll(jsonReader.parseQuestionList(jsonObject));
                 }
 
+                output.println(questionsToString(questionList));
+
             }
+
+
         } catch (IOException e) {
             System.out.println("fail");
         }
+    }
+
+    public static String questionsToString(List<Question> questionList) {
+        String string = "";
+        JSONArray jsonQuestions = new JSONArray();
+        for (Question q: questionList) {
+           jsonQuestions.put(q.toJson());
+        }
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("questions", jsonQuestions);
+
+        return jsonObject.toString();
     }
 
 }
