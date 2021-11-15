@@ -69,13 +69,13 @@ public class MainFrame extends JFrame {
 
     private void initializeGraphics() {
         setVisible(true);
-        setLayout(new BorderLayout());
+        setLayout(new GridBagLayout());
         setSize(new Dimension(WIDTH, HEIGHT));
         setMinimumSize(new Dimension(WIDTH, HEIGHT));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         main = new JPanel(new BorderLayout());
         main.setVisible(true);
-        add(main, BorderLayout.CENTER);
+        add(main);
         addMenu();
     }
 
@@ -86,7 +86,7 @@ public class MainFrame extends JFrame {
 
     private void addMenu() {
         JPanel topMenu = new JPanel(new GridLayout(0, 2));
-        add(topMenu, BorderLayout.NORTH);
+        add(topMenu);
 
         JToggleButton c1 = new JToggleButton("Study");
         topMenu.add(c1);
@@ -102,7 +102,7 @@ public class MainFrame extends JFrame {
                     remove(main);
                     main = new JPanel(new BorderLayout());
                     main.setVisible(true);
-                    add(main, BorderLayout.CENTER);
+                    add(main);
                     addMainOne();
                     main.setFocusable(true);
                     revalidate();
@@ -119,7 +119,7 @@ public class MainFrame extends JFrame {
                     remove(main);
                     main = new JPanel(new BorderLayout());
                     main.setVisible(true);
-                    add(main, BorderLayout.CENTER);
+                    add(main);
                     addMainTwo();
                     main.setFocusable(true);
                     revalidate();
