@@ -13,54 +13,40 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class Server {
+    List<Question> questionList;
+    Set<ServerThread> serverThreads;
 
-    public static void main(String[] args) {
-        List<Question> questionList = new ArrayList<>();
-        JsonReader jsonReader = new JsonReader("");
-
+    public Server() {
+        questionList = new ArrayList<>();
+        serverThreads = new HashSet<>();
         int portNum = 4441;
-        boolean running = true;
-
         try {
             ServerSocket socket = new ServerSocket(portNum);
-            Socket clientSocket = socket.accept();
-            BufferedReader input = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-            PrintWriter output = new PrintWriter(clientSocket.getOutputStream(), true);
-
-            while (running) {
-                String clientText = input.readLine();
-                if (clientText != null) {
-                    if (clientText.equals("quit")) {
-                        running = false;
-                    }
-                    System.out.println("Received from client:" + clientText);
-                    JSONObject jsonObject = new JSONObject(clientText);
-                    questionList.addAll(jsonReader.parseQuestionList(jsonObject));
-                }
-
-                output.println(questionsToString(questionList));
-
+            while (true) {
+                ServerThread thread = new ServerThread(socket.accept(), this);
+                serverThreads.add(thread);
             }
-
-
         } catch (IOException e) {
             System.out.println("fail");
         }
     }
 
-    public static String questionsToString(List<Question> questionList) {
-        String string = "";
-        JSONArray jsonQuestions = new JSONArray();
-        for (Question q: questionList) {
-           jsonQuestions.put(q.toJson());
-        }
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("questions", jsonQuestions);
-
-        return jsonObject.toString();
+    public List<Question> getQuestionList() {
+        return questionList;
     }
 
+    public static void main(String[] args) {
+        new Server();
+    }
+
+    public void update() {
+        for (ServerThread thread: serverThreads) {
+            thread.sendQuestions();
+        }
+    }
 }

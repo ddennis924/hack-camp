@@ -22,11 +22,12 @@ public class Client {
     MainFrame mainFrame;
 
     public Client(User user, MainFrame mainFrame) {
+        this.mainFrame = mainFrame;
         JsonReader jsonReader = new JsonReader("");
 //        BufferedReader consoleReader = new BufferedReader(new InputStreamReader(System.in));
         boolean running = true;
         try {
-            Socket socket = new Socket((String) null, 4441);
+            Socket socket = new Socket("128.189.84.66", 4441);
             BufferedReader input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             PrintWriter output = new PrintWriter(socket.getOutputStream(), true);
 
@@ -39,7 +40,6 @@ public class Client {
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("questions", jsonQuestions);
             output.println(jsonObject);
-
 
             while (running) {
                 if (input.ready()) {
