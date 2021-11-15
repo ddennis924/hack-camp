@@ -21,6 +21,22 @@ public class questionDisplay {
         initializeInputs();
     }
 
+    public MainFrame getEditor() {
+        return editor;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public JTextPane getImageDisplay() {
+        return imageDisplay;
+    }
+
+    public JComponent getParent() {
+        return parent;
+    }
+
     private void initializeGraphics() {
         imageDisplay = new JTextPane();
         StyledDocument doc = imageDisplay.getStyledDocument();

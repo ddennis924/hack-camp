@@ -67,14 +67,11 @@ public class MainFrame extends JFrame {
         main.setVisible(true);
         add(main, BorderLayout.CENTER);
         addMenu();
-
     }
 
     private void addMainOne() {
-        main.removeAll();
         addMainPanel();
         addTools();
-        name = new JTextArea();
     }
 
     private void addMenu() {
@@ -92,7 +89,13 @@ public class MainFrame extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 if (c1.isSelected()) {
                     c2.setSelected(false);
+                    remove(main);
+                    main = new JPanel(new BorderLayout());
+                    main.setVisible(true);
+                    add(main, BorderLayout.CENTER);
                     addMainOne();
+                    revalidate();
+                    repaint();
                 }
             }
         });
@@ -102,7 +105,13 @@ public class MainFrame extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 if (c2.isSelected()) {
                     c1.setSelected(false);
+                    remove(main);
+                    main = new JPanel(new BorderLayout());
+                    main.setVisible(true);
+                    add(main, BorderLayout.CENTER);
                     addMainTwo();
+                    revalidate();
+                    repaint();
                 }
             }
         });
