@@ -12,6 +12,13 @@ public class User implements Writable {
     private final Set<Question> myQuestions;
     private final List<User> friendList;
 
+    public User(String name, List<Question> seed, Set<Question> myQ, List<User> friends){
+        this.name = name;
+        this.questionList = seed;
+        this.myQuestions = myQ;
+        this.friendList = friends;
+    }
+
     public User(String name){
         this.name = name;
         this.questionList = new ArrayList<>();
@@ -47,6 +54,14 @@ public class User implements Writable {
 
     public Set<Question> getMyQuestions() {
         return new HashSet<>(this.myQuestions);
+    }
+
+    public List<User> getFriendList(){
+        return new ArrayList<>(this.friendList);
+    }
+
+    public void addFriend(User newFriend){
+        this.friendList.add(newFriend);
     }
 
     public Set<String> commonCategories(User other){
