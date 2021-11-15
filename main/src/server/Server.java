@@ -1,5 +1,3 @@
-package server;
-
 import persistence.JsonWriter;
 import study_tinder.Question;
 
