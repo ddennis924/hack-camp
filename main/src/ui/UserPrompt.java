@@ -31,8 +31,9 @@ public class UserPrompt extends JFrame implements ActionListener {
 }
 
     private void addPrompts(JPanel main) {
-        JTextArea questionDisplay = new JTextArea(question.getContent());
+        JTextArea questionDisplay = new JTextArea("Question: \n" + question.getContent());
         questionDisplay.setPreferredSize(new Dimension(400, 150));
+        questionDisplay.setBackground(new Color(235, 232, 243));
         add(questionDisplay, BorderLayout.NORTH);
         questionDisplay.setEditable(false);
 
@@ -43,6 +44,8 @@ public class UserPrompt extends JFrame implements ActionListener {
         JTextArea name = new JTextArea("Asked by: " + question.getUser().getName());
         name.setEditable(false);
         name.setPreferredSize(new Dimension(400, 50));
+        name.setBackground(new Color(102,126,253));
+        name.setForeground(Color.WHITE);
         chat.add(name, BorderLayout.NORTH);
 
         chatBox = new JTextArea();
