@@ -1,5 +1,6 @@
 package ui;
 
+import server.Client;
 import study_tinder.Question;
 import study_tinder.User;
 
@@ -27,10 +28,19 @@ public class MainFrame extends JFrame {
     }
 
     private void test() {
-        User user1 = new User("alan");
-        user1.addQuestion("What is a for loop", "CPSC");
-        user1.addQuestion("((1+2)*0)/12985y1892519", "MATH");
-        questionsAsked = user1.getQList();
+        user = new User("alan");
+        user.uploadMyQuestion(new Question(user, "What is a for loop", "CPSC"));
+        user.uploadMyQuestion(new Question(user, "((1+2)*0)/12985y1892519", "MATH"));
+
+        MainFrame mainFrame = this;
+        Thread thread = new Thread() {
+            public void run() {
+                new Client(user, mainFrame);
+            }
+        };
+
+        thread.start();
+        questionsAsked = user.getQList();
     }
 
     public void setSequence(int sequence) {

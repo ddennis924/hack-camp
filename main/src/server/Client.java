@@ -13,6 +13,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.List;
+import java.util.Set;
 
 /*
  * Represents a user that can send and receive messages
@@ -29,7 +30,7 @@ public class Client {
             BufferedReader input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             PrintWriter output = new PrintWriter(socket.getOutputStream(), true);
 
-            List<Question> questionList = user.getQList();
+            Set<Question> questionList = user.getMyQuestions();
             String string = "";
             JSONArray jsonQuestions = new JSONArray();
             for (Question q: questionList) {
