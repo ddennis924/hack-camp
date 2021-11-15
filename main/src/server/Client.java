@@ -49,7 +49,6 @@ public class Client {
                         mainFrame.getQuestionsAsked().addAll(jsonReader.parseQuestionList(jsonQuestionList));
                     }
                 }
-                user.
             }
         } catch (IOException e) {
             System.out.println("fail");
