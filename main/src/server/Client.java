@@ -27,6 +27,7 @@ public class Client {
 //        BufferedReader consoleReader = new BufferedReader(new InputStreamReader(System.in));
         boolean running = true;
         try {
+            // ** Change host to your IP address **
             Socket socket = new Socket("128.189.84.66", 4441);
             BufferedReader input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             PrintWriter output = new PrintWriter(socket.getOutputStream(), true);
