@@ -3,6 +3,8 @@ package study_tinder;
 import org.json.JSONObject;
 import persistence.Writable;
 
+import java.util.Objects;
+
 public class Question implements Writable {
     private User user;
     private String content;
@@ -41,6 +43,13 @@ public class Question implements Writable {
 
     public void setCategory(String category) {
         this.category = category;
+    }
+
+    @Override
+    public boolean equals(Object other){
+        if (other == null || this.getClass() != other.getClass()) return false;
+        Question q = (Question) other;
+        return this.content.equals(q.content);
     }
 
     @Override

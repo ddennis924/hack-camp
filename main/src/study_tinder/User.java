@@ -9,20 +9,35 @@ import java.util.*;
 public class User implements Writable {
     private final String name;
     private final List<Question> questionList;
+    private final Set<Question> myQuestions;
+    private final List<User> friendList;
+
+    public User(String name, List<Question> seed, Set<Question> myQ, List<User> friends){
+        this.name = name;
+        this.questionList = seed;
+        this.myQuestions = myQ;
+        this.friendList = friends;
+    }
 
     public User(String name){
         this.name = name;
         this.questionList = new ArrayList<>();
+        this.myQuestions = new HashSet<>();
+        this.friendList = new ArrayList<>();
     }
 
     public User(String name, List<Question> seed){
         this.name = name;
         this.questionList = seed;
+        this.myQuestions = new HashSet<>();
+        this.friendList = new ArrayList<>();
     }
 
     public User(List<Question> seed){
         this.name = "guest";
         this.questionList = seed;
+        this.myQuestions = new HashSet<>();
+        this.friendList = new ArrayList<>();
     }
 
     public void addQuestion(String i, String c){
@@ -30,11 +45,23 @@ public class User implements Writable {
     }
 
     public List<Question> getQList(){
-        return this.questionList;
+        return new ArrayList<>(this.questionList);
     }
 
     public String getName(){
         return this.name;
+    }
+
+    public Set<Question> getMyQuestions() {
+        return new HashSet<>(this.myQuestions);
+    }
+
+    public List<User> getFriendList(){
+        return new ArrayList<>(this.friendList);
+    }
+
+    public void addFriend(User newFriend){
+        this.friendList.add(newFriend);
     }
 
     public Set<String> commonCategories(User other){
@@ -64,6 +91,10 @@ public class User implements Writable {
             }
         });
         return output;
+    }
+
+    public void uploadMyQuestion(Question q){
+        myQuestions.add(q);
     }
 
     @Override
