@@ -11,9 +11,11 @@ public class questionDisplay {
     MainFrame editor;
     String content;
     JTextPane imageDisplay;
+    JComponent parent;
 
-    public questionDisplay(MainFrame e) {
+    public questionDisplay(MainFrame e, JComponent parent) {
         this.editor = e;
+        this.parent = parent;
         content = e.getQuestionsAsked().get(editor.getSequence()).getContent();
         initializeGraphics();
         initializeInputs();
@@ -29,7 +31,7 @@ public class questionDisplay {
         doc.setParagraphAttributes(0,doc.getLength(),centre,false);
 
         imageDisplay.setEditable(false);
-        editor.add(imageDisplay, BorderLayout.CENTER);
+        parent.add(imageDisplay, BorderLayout.CENTER);
         imageDisplay.setPreferredSize(new Dimension(MainFrame.WIDTH, MainFrame.HEIGHT-20));
     }
 
