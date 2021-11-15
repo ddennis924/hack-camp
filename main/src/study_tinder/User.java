@@ -9,20 +9,24 @@ import java.util.*;
 public class User implements Writable {
     private final String name;
     private final List<Question> questionList;
+    private final Set<Question> myQuestions;
 
     public User(String name){
         this.name = name;
         this.questionList = new ArrayList<>();
+        this.myQuestions = new HashSet<>();
     }
 
     public User(String name, List<Question> seed){
         this.name = name;
         this.questionList = seed;
+        this.myQuestions = new HashSet<>();
     }
 
     public User(List<Question> seed){
         this.name = "guest";
         this.questionList = seed;
+        this.myQuestions = new HashSet<>();
     }
 
     public void addQuestion(String i, String c){
@@ -64,6 +68,10 @@ public class User implements Writable {
             }
         });
         return output;
+    }
+
+    public void uploadMyQuestion(Question q){
+        myQuestions.add(q);
     }
 
     @Override
