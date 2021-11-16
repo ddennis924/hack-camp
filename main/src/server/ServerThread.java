@@ -19,6 +19,9 @@ public class ServerThread extends Thread {
     PrintWriter output;
     JsonReader jsonReader;
 
+    /*
+     * Represents a server thread for handling connections with a single client
+     */
     public ServerThread(Socket socket, Server server) throws IOException {
         this.socket = socket;
         this.server = server;
@@ -26,28 +29,27 @@ public class ServerThread extends Thread {
         this.output = new PrintWriter(socket.getOutputStream(), true);
         this.jsonReader = new JsonReader("");
 
+        receiveQuestions();
+    }
 
+    // EFFECTS: Listens for and receives questions from the client; then updates the server's question list and
+    //          calls for the server to resend questions to all clients
+    private void receiveQuestions() throws IOException {
         String clientText = input.readLine();
         if (clientText != null) {
             System.out.println("Received from client:" + clientText);
             JSONObject jsonObject = new JSONObject(clientText);
             server.getQuestionList().addAll(jsonReader.parseQuestionList(jsonObject));
-            sendQuestions();
         }
-        server.update();
+        server.updateQuestions();
     }
 
-    public void run() {
-        jsonReader = new JsonReader("");
-        try {
-            if (input.ready()) {
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
+    // EFFECTS: Sends the server's question list (as a String) to this thread's client
+    public void sendQuestions() {
+        output.println(questionsToString(server.getQuestionList()));
     }
 
+    // EFFECTS: Converts a question list to a String
     public static String questionsToString(List<Question> questionList) {
         JSONArray jsonQuestions = new JSONArray();
         for (Question q: questionList) {
@@ -59,7 +61,4 @@ public class ServerThread extends Thread {
         return jsonObject.toString();
     }
 
-    public void sendQuestions() {
-        output.println(questionsToString(server.getQuestionList()));
-    }
 }
