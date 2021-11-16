@@ -28,12 +28,19 @@ public class ServerThread extends Thread {
         this.input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         this.output = new PrintWriter(socket.getOutputStream(), true);
         this.jsonReader = new JsonReader("");
+    }
 
-        receiveQuestions();
+    public void run() {
+        try {
+            receiveQuestions();
+        } catch (IOException e) {
+            throw new RuntimeException("IOException has occurred.");
+        }
     }
 
     // EFFECTS: Listens for and receives questions from the client; then updates the server's question list and
     //          calls for the server to resend questions to all clients
+    //          (only occurs once as of now)
     private void receiveQuestions() throws IOException {
         String clientText = input.readLine();
         if (clientText != null) {
@@ -49,7 +56,7 @@ public class ServerThread extends Thread {
         output.println(questionsToString(server.getQuestionList()));
     }
 
-    // EFFECTS: Converts a question list to a String
+    // EFFECTS: Converts a list of Question to a String
     public static String questionsToString(List<Question> questionList) {
         JSONArray jsonQuestions = new JSONArray();
         for (Question q: questionList) {

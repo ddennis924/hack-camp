@@ -32,7 +32,7 @@ public class Client {
 
         try {
             // ** Change localhost to your IP address for connection through Wi-Fi **
-            Socket socket = new Socket("localhost", Server.SERVER_PORT_NUM);
+            Socket socket = new Socket((String) null, Server.SERVER_PORT_NUM);
             input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             output = new PrintWriter(socket.getOutputStream(), true);
 

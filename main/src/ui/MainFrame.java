@@ -19,10 +19,12 @@ public class MainFrame extends JFrame {
     private JPanel main;
 
 
-    public MainFrame(String title) {
+    public MainFrame(String title, User user) {
         super(title);
+
+        this.user = user;
         sequence = 0;
-        test();
+        questionsAsked = user.getQList();
         initializeGraphics();
     }
 
@@ -33,16 +35,6 @@ public class MainFrame extends JFrame {
 
         user.addQuestion("What is a for loop", "CPSC");
         user.addQuestion("((1+2)*0)/12985y1892519", "MATH");
-        questionsAsked = user.getQList();
-
-//        MainFrame mainFrame = this;
-//        Thread thread = new Thread() {
-//            public void run() {
-//                new Client(user, mainFrame);
-//            }
-//        };
-//        thread.start();
-
     }
 
     public void setSequence(int sequence) {
@@ -164,9 +156,4 @@ public class MainFrame extends JFrame {
     private Question getQuestion() {
         return questionsAsked.get(sequence);
     }
-
-    public static void main(String[] args) {
-        new MainFrame("Studii");
-    }
-
 }

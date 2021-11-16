@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Set;
 
 public class Server {
-    public static final int SERVER_PORT_NUM = 4441;
+    public static final int SERVER_PORT_NUM = 4442;
     List<Question> questionList;
     Set<ServerThread> serverThreads;
     ServerSocket socket;
@@ -30,12 +30,14 @@ public class Server {
         listenForNewClient();
     }
 
+
     // MODIFIES: this
     // EFFECTS: Listens for new connections to server and assigns a thread to new client
     private void listenForNewClient() {
         try {
             while (true) {
                 ServerThread thread = new ServerThread(socket.accept(), this);
+                thread.start();
                 serverThreads.add(thread);
             }
         } catch (IOException e) {
